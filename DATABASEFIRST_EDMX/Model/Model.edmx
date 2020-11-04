@@ -1,0 +1,163 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DB_PRODUTOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="NOTA_PRODUTO">
+          <Key>
+            <PropertyRef Name="IDNOTAPRODUTO" />
+          </Key>
+          <Property Name="IDNOTAPRODUTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IDPRODUTO" Type="int" Nullable="false" />
+          <Property Name="NOTA" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_PRODUTOS">
+          <Key>
+            <PropertyRef Name="IDPRODUTO" />
+          </Key>
+          <Property Name="IDPRODUTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMEPRODUTO" Type="varchar" MaxLength="150" Nullable="false" />
+          <Property Name="DESCRICAOPRODUTO" Type="varchar" MaxLength="500" />
+          <Property Name="IDTIPOPRODUTO" Type="int" Nullable="false" />
+          <Property Name="DATACADASTRO" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_TIPO_PRODUTO">
+          <Key>
+            <PropertyRef Name="IDTIPOPRODUTO" />
+          </Key>
+          <Property Name="IDTIPOPRODUTO" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DESCRICAOTIPOPRODUTO" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_PRODUTO_TIPOPRODUTO">
+          <End Role="TB_TIPO_PRODUTO" Type="Self.TB_TIPO_PRODUTO" Multiplicity="1" />
+          <End Role="TB_PRODUTOS" Type="Self.TB_PRODUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_TIPO_PRODUTO">
+              <PropertyRef Name="IDTIPOPRODUTO" />
+            </Principal>
+            <Dependent Role="TB_PRODUTOS">
+              <PropertyRef Name="IDTIPOPRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PRODUTOSModelStoreContainer">
+          <EntitySet Name="NOTA_PRODUTO" EntityType="Self.NOTA_PRODUTO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_PRODUTOS" EntityType="Self.TB_PRODUTOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TB_TIPO_PRODUTO" EntityType="Self.TB_TIPO_PRODUTO" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PRODUTO_TIPOPRODUTO" Association="Self.FK_PRODUTO_TIPOPRODUTO">
+            <End Role="TB_TIPO_PRODUTO" EntitySet="TB_TIPO_PRODUTO" />
+            <End Role="TB_PRODUTOS" EntitySet="TB_PRODUTOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DB_PRODUTOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="NOTA_PRODUTO">
+          <Key>
+            <PropertyRef Name="IDNOTAPRODUTO" />
+          </Key>
+          <Property Name="IDNOTAPRODUTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IDPRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="NOTA" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TB_PRODUTOS">
+          <Key>
+            <PropertyRef Name="IDPRODUTO" />
+          </Key>
+          <Property Name="IDPRODUTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMEPRODUTO" Type="String" MaxLength="150" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DESCRICAOPRODUTO" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="IDTIPOPRODUTO" Type="Int32" Nullable="false" />
+          <Property Name="DATACADASTRO" Type="DateTime" Precision="0" Nullable="false" />
+          <NavigationProperty Name="TB_TIPO_PRODUTO" Relationship="Self.FK_PRODUTO_TIPOPRODUTO" FromRole="TB_PRODUTOS" ToRole="TB_TIPO_PRODUTO" />
+        </EntityType>
+        <EntityType Name="TB_TIPO_PRODUTO">
+          <Key>
+            <PropertyRef Name="IDTIPOPRODUTO" />
+          </Key>
+          <Property Name="IDTIPOPRODUTO" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DESCRICAOTIPOPRODUTO" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TB_PRODUTOS" Relationship="Self.FK_PRODUTO_TIPOPRODUTO" FromRole="TB_TIPO_PRODUTO" ToRole="TB_PRODUTOS" />
+        </EntityType>
+        <Association Name="FK_PRODUTO_TIPOPRODUTO">
+          <End Role="TB_TIPO_PRODUTO" Type="Self.TB_TIPO_PRODUTO" Multiplicity="1" />
+          <End Role="TB_PRODUTOS" Type="Self.TB_PRODUTOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TB_TIPO_PRODUTO">
+              <PropertyRef Name="IDTIPOPRODUTO" />
+            </Principal>
+            <Dependent Role="TB_PRODUTOS">
+              <PropertyRef Name="IDTIPOPRODUTO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DB_PRODUTOSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="NOTA_PRODUTO" EntityType="Self.NOTA_PRODUTO" />
+          <EntitySet Name="TB_PRODUTOS" EntityType="Self.TB_PRODUTOS" />
+          <EntitySet Name="TB_TIPO_PRODUTO" EntityType="Self.TB_TIPO_PRODUTO" />
+          <AssociationSet Name="FK_PRODUTO_TIPOPRODUTO" Association="Self.FK_PRODUTO_TIPOPRODUTO">
+            <End Role="TB_TIPO_PRODUTO" EntitySet="TB_TIPO_PRODUTO" />
+            <End Role="TB_PRODUTOS" EntitySet="TB_PRODUTOS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DB_PRODUTOSModelStoreContainer" CdmEntityContainer="DB_PRODUTOSEntities">
+          <EntitySetMapping Name="NOTA_PRODUTO">
+            <EntityTypeMapping TypeName="DB_PRODUTOSModel.NOTA_PRODUTO">
+              <MappingFragment StoreEntitySet="NOTA_PRODUTO">
+                <ScalarProperty Name="IDNOTAPRODUTO" ColumnName="IDNOTAPRODUTO" />
+                <ScalarProperty Name="IDPRODUTO" ColumnName="IDPRODUTO" />
+                <ScalarProperty Name="NOTA" ColumnName="NOTA" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_PRODUTOS">
+            <EntityTypeMapping TypeName="DB_PRODUTOSModel.TB_PRODUTOS">
+              <MappingFragment StoreEntitySet="TB_PRODUTOS">
+                <ScalarProperty Name="IDPRODUTO" ColumnName="IDPRODUTO" />
+                <ScalarProperty Name="NOMEPRODUTO" ColumnName="NOMEPRODUTO" />
+                <ScalarProperty Name="DESCRICAOPRODUTO" ColumnName="DESCRICAOPRODUTO" />
+                <ScalarProperty Name="IDTIPOPRODUTO" ColumnName="IDTIPOPRODUTO" />
+                <ScalarProperty Name="DATACADASTRO" ColumnName="DATACADASTRO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TB_TIPO_PRODUTO">
+            <EntityTypeMapping TypeName="DB_PRODUTOSModel.TB_TIPO_PRODUTO">
+              <MappingFragment StoreEntitySet="TB_TIPO_PRODUTO">
+                <ScalarProperty Name="IDTIPOPRODUTO" ColumnName="IDTIPOPRODUTO" />
+                <ScalarProperty Name="DESCRICAOTIPOPRODUTO" ColumnName="DESCRICAOTIPOPRODUTO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
